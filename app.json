@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "Nextgtel",
+    "slug": "edw-apk",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/nexgt.jpeg",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.johang31m.edwapk"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/nexgt.jpeg",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.johang31m.edwapk",
+      "permissions": [
+        "CAMERA",
+        "LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/nexgt.jpeg"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cf62db93-f1d0-43e1-967b-94c548c56da4"
+      }
+    }
+  }
+}

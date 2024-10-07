@@ -1,0 +1,22 @@
+{
+  "build": {
+    "production": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "SERVER_ROUTE": "http://6f3906702b06.sn.mynetname.net/api"
+      }
+    }
+  }
+}
