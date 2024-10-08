@@ -10,9 +10,9 @@ export default function useLogIn() {
     mutationFn: async (variables: { USERNAME: string; PASSWORD: string }) => {
       try {
         console.log(AXIOS.defaults.baseURL);
-        const response = await AXIOS.post("/auth/signin", {
-          USERNAME: variables.USERNAME,
-          PASSWORD: variables.PASSWORD,
+        const response = await AXIOS.post("/login", {
+          username: variables.USERNAME,
+          password: variables.PASSWORD,
           bandMob: true,
         });
         if (response && "data" in response && response.data.token) {

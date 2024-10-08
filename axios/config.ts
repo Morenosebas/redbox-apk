@@ -2,8 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const AXIOS = axios.create({
-  baseURL: process.env.SERVER_ROUTE || "http://192.168.1.11:3000/api",
-  // baseURL: "https://6f3906702b06.sn.mynetname.net/api",
+  // baseURL: process.env.SERVER_ROUTE || "http://192.168.1.11:3000/api",
+  baseURL: "https://6f3906702b06.sn.mynetname.net/redbox/api",
 });
 
 AXIOS.interceptors.request.use(
