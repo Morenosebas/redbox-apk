@@ -14,14 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.johang31m.edwapk"
+      "bundleIdentifier": "com.johang31m.redboxedwapk"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/nexgt.jpeg",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.johang31m.edwapk",
+      "package": "com.johang31m.redboxedwapk",
       "permissions": [
         "CAMERA",
         "LOCATION",
@@ -50,8 +50,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "cf62db93-f1d0-43e1-967b-94c548c56da4"
+        "projectId": "99e775b7-344f-4d81-b6c3-51036468ada5"
       }
-    }
+    },
+    "owner": "johang31m"
   }
 }

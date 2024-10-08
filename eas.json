@@ -15,7 +15,7 @@
         "buildType": "apk"
       },
       "env": {
-        "SERVER_ROUTE": "http://6f3906702b06.sn.mynetname.net/api"
+        "SERVER_ROUTE": "http://6f3906702b06.sn.mynetname.net/redbox/api"
       }
     }
   }
