@@ -174,22 +174,22 @@ const ReportForm: React.FC<ReportFormProps> = ({
         </Picker>
         {/* Image Pickers */}
         <ImagePickerBox
-          label="PictBOX Image"
+          label="Equipment"
           imageUri={images.PictBOX}
           onImageSelected={(uri) => handleImageSelected("PictBOX", uri)}
         />
         <ImagePickerBox
-          label="PictBef Image"
+          label="Connections"
           imageUri={images.PictBef}
           onImageSelected={(uri) => handleImageSelected("PictBef", uri)}
         />
         <ImagePickerBox
-          label="PictDef Image"
+          label="Disconnected"
           imageUri={images.PictDef}
           onImageSelected={(uri) => handleImageSelected("PictDef", uri)}
         />
         <ImagePickerBox
-          label="PictAft Image"
+          label="Front Store"
           imageUri={images.PictAft}
           onImageSelected={(uri) => handleImageSelected("PictAft", uri)}
         />
