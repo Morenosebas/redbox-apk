@@ -22,8 +22,9 @@ const CreateReportScreen: React.FC = () => {
       formData.append("nota", data.nota);
       formData.append("name_tecnico", data.name_tecnico);
       formData.append("field", data.field);
-
-      // Append images
+      const fechaActual = new Date();
+      const fechaISO = new Date(fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+      formData.append("fecha", fechaISO);
       if (data.PictBOX) {
         formData.append("PictBOX", {
           uri: data.PictBOX,
