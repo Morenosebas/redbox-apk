@@ -33,9 +33,7 @@ const ImagePickerBox: React.FC<ImagePickerBoxProps> = ({
           onPress: async () => {
             const result: ImagePickerResult = await launchCameraAsync({
               mediaTypes: MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [4, 3],
-              quality: 0.8,
+              quality: 1,
             });
 
             if (!result.canceled && result.assets && result.assets.length > 0) {
@@ -48,9 +46,7 @@ const ImagePickerBox: React.FC<ImagePickerBoxProps> = ({
           onPress: async () => {
             const result: ImagePickerResult = await launchImageLibraryAsync({
               mediaTypes: MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [4, 3],
-              quality: 0.8,
+              quality: 1,
             });
 
             if (!result.canceled && result.assets && result.assets.length > 0) {

@@ -14,16 +14,22 @@ const CreateReportScreen: React.FC = () => {
   const [KioskId, setKioskId] = useState("");
   const { kioskIds, loading } = useGetKioskIds();
   const { tecnicos, loading: loadTec } = useGettecnicos();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleReportSubmit = async (data: ReportFormData) => {
     try {
+      setIsSubmitting(true);
       const formData = new FormData();
       formData.append("KioskId", data.KioskId);
       formData.append("nota", data.nota);
       formData.append("name_tecnico", data.name_tecnico);
       formData.append("field", data.field);
       const fechaActual = new Date();
-      const fechaISO = new Date(fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+      const fechaISO = new Date(
+        fechaActual.getTime() - fechaActual.getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .split("T")[0];
       formData.append("fecha", fechaISO);
       if (data.PictBOX) {
         formData.append("PictBOX", {
@@ -54,6 +60,7 @@ const CreateReportScreen: React.FC = () => {
         } as any);
       }
       const baseUrl = AXIOS.defaults.baseURL;
+
       const response = await fetch(baseUrl + "/insertar_reportes", {
         method: "POST",
         headers: {
@@ -73,12 +80,15 @@ const CreateReportScreen: React.FC = () => {
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "An unexpected error occurred.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <View style={{ flex: 1 }}>
       <ReportForm
+        isSubmiting={isSubmitting}
         kioskIds={kioskIds}
         technicians={tecnicos}
         onSubmit={handleReportSubmit}

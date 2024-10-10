@@ -11,6 +11,7 @@ type ReportFormProps = {
   kioskIds: string[];
   technicians: string[];
   onSubmit: (data: ReportFormData) => void;
+  isSubmiting: boolean;
 };
 
 export type ReportFormData = {
@@ -28,6 +29,7 @@ const ReportForm: React.FC<ReportFormProps> = ({
   kioskIds,
   technicians,
   onSubmit,
+  isSubmiting,
 }) => {
   const [KioskId, setKioskId] = useState("");
   const [nota, setNota] = useState("");
@@ -114,7 +116,13 @@ const ReportForm: React.FC<ReportFormProps> = ({
           ))}
         </Picker> */}
         <Dropdown
-          style={{height: 50,backgroundColor: "#fff",borderRadius: 4,marginBottom: 16,marginTop: 16}}
+          style={{
+            height: 50,
+            backgroundColor: "#fff",
+            borderRadius: 4,
+            marginBottom: 16,
+            marginTop: 16,
+          }}
           data={kioskIds.map((id) => ({ label: id, value: id }))}
           value={selected?.value}
           onChange={(value) => {
@@ -168,7 +176,7 @@ const ReportForm: React.FC<ReportFormProps> = ({
           onValueChange={(itemValue) => setField(itemValue)}
           style={styles.picker}
         >
-          <Picker.Item label="None" value="none" />
+          <Picker.Item label="None" value="" />
           <Picker.Item label="Already Removed" value="already removed" />
           <Picker.Item label="Done" value="done" />
         </Picker>
@@ -198,6 +206,8 @@ const ReportForm: React.FC<ReportFormProps> = ({
           mode="contained"
           onPress={handleSubmit}
           style={styles.submitButton}
+          disabled={isSubmiting}
+          className="disabled:bg-gray-500"
         >
           Submit Report
         </Button>
