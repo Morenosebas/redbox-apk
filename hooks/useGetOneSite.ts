@@ -31,8 +31,7 @@ export default function useGetOneSite(kioskId: number | string) {
         setLoading(false);
       }
     };
-
-    fetchData();
+    if (kioskId) fetchData();
   }, [kioskId]);
 
   return { site, loading, error };
