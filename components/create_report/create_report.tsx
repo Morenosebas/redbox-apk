@@ -176,9 +176,9 @@ const ReportForm: React.FC<ReportFormProps> = ({
           onValueChange={(itemValue) => setField(itemValue)}
           style={styles.picker}
         >
-          <Picker.Item label="None" value="" />
-          <Picker.Item label="Already Removed" value="already removed" />
-          <Picker.Item label="Done" value="done" />
+          <Picker.Item label="None" value=""  key={"None"} />
+          <Picker.Item label="Already Removed" value="Already Removed" key={"Already Removed"} />
+          <Picker.Item label="Done" value="Done" key={"Done"} />
         </Picker>
         {/* Image Pickers */}
         <ImagePickerBox

@@ -1,15 +1,74 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  ViewToken,
+} from "react-native";
 import { Text, Button, Card } from "react-native-paper";
 import { Stack, useRouter } from "expo-router";
 import { AuthContext } from "@/context/auth";
 import useGetReports from "@/hooks/useGetReports";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+
+type ListItemProps = {
+  viewableItems: Animated.SharedValue<ViewToken[]>;
+  index: number;
+  listWidth: number;
+  report: {
+    KioskId: string;
+    fecha: string;
+    nota: string;
+    name_tecnico: string;
+    code: number;
+    store_id: string;
+    address: string;
+    _id: string;
+  };
+};
+const ListItem: React.FC<ListItemProps> = React.memo(
+  ({ viewableItems, index, listWidth, report }) => {
+    const rStyle = useAnimatedStyle(() => {
+      const isVisible = Boolean(
+        viewableItems.value.map((v) => v.index).includes(index)
+      );
+
+      return {
+        opacity: withTiming(isVisible ? 1 : 0),
+      };
+    }, []);
+    return (
+      <Animated.View key={index} style={[{ width: listWidth }, rStyle]}>
+        <Card className="mb-2">
+          <Card.Title
+            title={`Kiosk ID: ${report.KioskId}`}
+            subtitle={`Date: ${report.fecha}`}
+          />
+          <Card.Content>
+            <Text>Technician: {report.name_tecnico}</Text>
+            <Text>Note: {report.nota}</Text>
+            <Text>Code: {report.code}</Text>
+            <Text>Store ID: {report.store_id}</Text>
+            <Text>Address: {report.address}</Text>
+          </Card.Content>
+        </Card>
+      </Animated.View>
+    );
+  }
+);
+
 export default function HomeView() {
   const { logout } = useContext(AuthContext);
   const { refetchReports, reports, isLoading, error } = useGetReports();
   const router = useRouter();
-
+  const viewableItems = useSharedValue<ViewToken[]>([]);
+  const [listWidth, setListWidth] = useState(0);
   const [reportesConSitio, setReportesConSitio] = useState<
     {
       KioskId: string;
@@ -56,53 +115,36 @@ export default function HomeView() {
           ),
         }}
       />
-
-      <ScrollView className="flex-1 p-2">
-        {reportesConSitio.map((report) => (
-          <ReportCard key={report._id} report={report} />
-        ))}
-      </ScrollView>
-
-      <Button
-        mode="contained"
-        className="bg-blue-500 m-2"
-        onPress={() => {
-          router.push("/create_report");
+      <FlatList
+        data={reportesConSitio}
+        onLayout={(event) => {
+          const { width } = event.nativeEvent.layout;
+          setListWidth(width);
         }}
-      >
-        Create Report
-      </Button>
-    </View>
-  );
-}
-
-function ReportCard({
-  report,
-}: {
-  report: {
-    KioskId: string;
-    fecha: string;
-    nota: string;
-    name_tecnico: string;
-    code: number;
-    store_id: string;
-    address: string;
-    _id: string;
-  };
-}) {
-  return (
-    <Card className="mb-2">
-      <Card.Title
-        title={`Kiosk ID: ${report.KioskId}`}
-        subtitle={`Date: ${report.fecha}`}
+        onViewableItemsChanged={({ viewableItems: vItems }) => {
+          viewableItems.value = vItems;
+        }}
+        renderItem={({ item, index }) => (
+          <ListItem
+            index={index}
+            listWidth={listWidth}
+            report={item}
+            viewableItems={viewableItems}
+          />
+        )}
+        keyExtractor={(item) => item._id}
       />
-      <Card.Content>
-        <Text>Technician: {report.name_tecnico}</Text>
-        <Text>Note: {report.nota}</Text>
-        <Text>Code: {report.code}</Text>
-        <Text>Store ID: {report.store_id}</Text>
-        <Text>Address: {report.address}</Text>
-      </Card.Content>
-    </Card>
+      <View className="p-2">
+        <Button
+          mode="contained"
+          className="bg-blue-500 p-1 "
+          onPress={() => {
+            router.push("/create_report");
+          }}
+        >
+          Create Report
+        </Button>
+      </View>
+    </View>
   );
 }
